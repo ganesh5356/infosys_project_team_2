@@ -14,9 +14,12 @@ public class PurchaseRequisitionDto {
 
     @NotNull
     private Long requesterId;
-
+    
+    @NotNull
     private Long vendorId;
     private String status;
+    
+    @NotNull
     private BigDecimal totalAmount;
 
     // getters & setters

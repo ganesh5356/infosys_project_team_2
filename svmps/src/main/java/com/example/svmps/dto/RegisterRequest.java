@@ -1,26 +1,43 @@
 package com.example.svmps.dto;
 
+import java.util.Set;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import java.util.Set;
 
 public class RegisterRequest {
 
-    @NotBlank
-    @Size(min = 3, max = 50)
+    // Username validation
+    @NotBlank(message = "Username is required")
+    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
+    @Pattern(
+        regexp = "^[a-zA-Z0-9._-]+$",
+        message = "Username can contain letters, numbers, dot, underscore, and hyphen only"
+    )
     private String username;
 
-    @NotBlank
-    @Size(min = 6, max = 100)
+    // Password validation
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, max = 100, message = "Password must be between 6 and 100 characters")
     private String password;
 
-    @NotBlank
-    @Email
+    // Email validation
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
     private String email;
 
-    // optional role names to assign (e.g., ["ADMIN"])
-    private Set<String> roles;
+    // Roles validation (optional but controlled)
+    @NotEmpty(message = "At least one role must be specified")
+    private Set<
+        @Pattern(
+            regexp = "ADMIN|PROCUREMENT|FINANCE|VENDOR",
+            message = "Invalid role name"
+        )
+        String
+    > roles;
 
     public RegisterRequest() {}
 
@@ -33,13 +50,13 @@ public class RegisterRequest {
         this.username = username;
     }
 
+    /**
+     * Plain password here; service will hash before saving.
+     */
     public String getPassword() {
         return password;
     }
 
-    /**
-     * Plain password here; service will hash before saving.
-     */
     public void setPassword(String password) {
         this.password = password;
     }

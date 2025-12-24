@@ -19,6 +19,7 @@ public class PurchaseOrderDto {
     private Long vendorId;
 
     private String status;
+    @NotNull
     private BigDecimal totalAmount;
 
     // getters & setters
