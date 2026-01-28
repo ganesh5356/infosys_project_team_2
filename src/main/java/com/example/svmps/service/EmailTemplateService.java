@@ -22,4 +22,20 @@ public class EmailTemplateService {
             <p>Total Amount: %s</p>
             """, pr.getPrNumber(), pr.getTotalAmount());
     }
+
+    public String prRejected(PurchaseRequisition pr, String comments) {
+        return String.format("""
+        <h2>Purchase Requisition Rejected</h2>
+        <p><b>PR Number:</b> %s</p>
+        <p><b>Total Amount:</b> %s</p>
+        <p><b>Status:</b> %s</p>
+        <p><b>Remarks:</b> %s</p>
+        """,
+                pr.getPrNumber(),
+                pr.getTotalAmount(),
+                pr.getStatus(),
+                comments
+        );
+    }
+
 }

@@ -153,8 +153,18 @@ public class PurchaseRequisitionService {
 
         saveHistory(pr, approverId, "REJECTED", comments);
 
+        // ✅ SEND EMAIL TO REQUESTER
+        if (pr.getRequesterEmail() != null) {
+            emailService.send(
+                    pr.getRequesterEmail(),
+                    "PR Rejected: " + pr.getPrNumber(),
+                    templateService.prRejected(pr, comments)
+            );
+        }
+
         return toDto(pr);
     }
+
 
     // ================= GET BY ID =================
     public PurchaseRequisitionDto getPrById(Long id) {
