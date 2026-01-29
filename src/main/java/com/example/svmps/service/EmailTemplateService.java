@@ -8,7 +8,7 @@ public class EmailTemplateService {
 
     public String prSubmitted(PurchaseRequisition pr) {
         return String.format("""
-            <h2>Purchase Requisition Submitted</h2>
+            <h2>Purchase Requisition Raised</h2>
             <p>PR Number: %s</p>
             <p>Total Amount: %s</p>
             <p>Status: %s</p>
